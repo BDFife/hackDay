@@ -23,7 +23,12 @@ def getConcertsByID(mbID, loc, min, max):
     
     skID = 'musichackdayboston'
 
-    myURL='http://api.songkick.com/api/3.0/artists/mbid:%s/events.json?apikey=%s&location=%s&min_date=%s&max_date=%s' % (mbID, skID, loc, min, max )
+    # fixme: use proper python URL helpers for this.
+    if loc:
+        myURL='http://api.songkick.com/api/3.0/artists/mbid:%s/events.json?apikey=%s&location=%s&min_date=%s&max_date=%s' % (mbID, skID, loc, min, max )
+    else:
+        myURL='http://api.songkick.com/api/3.0/artists/mbid:%s/events.json?apikey=%s&min_date=%s&max_date=%s' % (mbID, skID, min, max )
+
     data = urllib.urlopen(myURL).read()
     data = json.loads(data)
     
