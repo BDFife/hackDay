@@ -9,7 +9,7 @@ from getMultimediaFromTracks import getFullData
 from getUnlistenedTracks import getUnplayedTracks
 
 
-def getNewSongs(lfmID, loc)
+def getNewSongs(lfmID, loc):
     # jimmytheleaf
     # deuterium64
     # ELCatch22
