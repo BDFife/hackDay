@@ -9,16 +9,15 @@ from getMultimediaFromTracks import getFullData
 from getUnlistenedTracks import getUnplayedTracks
 
 
-if __name__ == "__main__":
-
+def getNewSongs(lfmID, loc)
     # jimmytheleaf
     # deuterium64
     # ELCatch22
     # dagdunnit
-    lfmID = 'dagdunnit'      # last FM id
+    #lfmID = 'dagdunnit'      # last FM id
     numArtists = 5            # number of top artists to track
     #numArtists = 100            # number of top artists to track
-    loc = 'sk:18842'            # boston
+    #loc = 'sk:18842'            # boston
     min = '2010-10-20'          # sets date range for upcoming concerts
     max = '2011-10-20'          # sets date range for upcoming concerts
     
@@ -83,3 +82,6 @@ if __name__ == "__main__":
 
     writeWebsite(full_data, upConcerts)    
     
+
+if __name__ == "__main__":
+    getNewSongs('dagdunnit', 'sk:18842')
