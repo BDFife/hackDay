@@ -35,7 +35,7 @@ if __name__ == "__main__":
     for key in dropKeys:
         del topArtists[key]
         
-    print topArtists
+    #print topArtists
     
     # pull upcoming concerts from songkick
     
@@ -45,7 +45,7 @@ if __name__ == "__main__":
         upConcerts.update(getConcertsByID(topArtists[band]['mbid'], loc, min, max))
 
     # todo: extract concert URLS here. 
-    print upConcerts
+    #print upConcerts
     upBands = []
     
     # compress upConcerts to a list of bands playing in Boston in the future
@@ -67,15 +67,15 @@ if __name__ == "__main__":
             if songList:
                 bandSetlists[band].extend(songList)
     
-    print bandSetlists
+    #print bandSetlists
     #f = open("setlists.json", "r")
     #bandSetlists = json.load(f)
     #f.close()
     unplayed_tracks = getUnplayedTracks(bandSetlists)
 
-    print unplayed_tracks
+    #print unplayed_tracks
     full_data = getFullData(unplayed_tracks)
-    print full_data
+    #print full_data
 
     #f = open("enhancedTracksToExplore.json", "r")
     #full_data = json.load(f)
