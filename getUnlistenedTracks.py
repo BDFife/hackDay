@@ -8,44 +8,11 @@ userartisttracks = "http://ws.audioscrobbler.com/2.0/?method=user.getartisttrack
 config.ECHO_NEST_API_KEY = "LOKZT65Q6JWADXZTU"
 
 
-# Test: band listened to, unlistened to track
-# Band not listened to
-# Band listend to, listened to track
-#sampledata = [ "Radiohead :: Bulletproof", "Taj Mahal :: Cakewalk Into Town", "Radiohead :: Reckoner"]
 
-#{
-#    "51b7f46f-6c0f-46f2-9496-08c9ec2624d4": [
- #       "Jeep Song (Dresden Dolls cover)",
-  #      "You To Thank",
-    #    "Brainwascht",
-     #   "Where's Summer B?",
-     #   "Wandering",
-      #  "Don't Change Your Plans",
-      #  "Annie Waits",
-      #  "Songs of Love",
-      #  "You Don't Know Me",
- #       "Still Fighting It",
-  #      "Video",
-   #     "Effington",
-#        "Lullabye",
- #       "Landed",
-  #      "Narcolepsy",
-   #     "Army",
-    #    "Kate/Wipeout",
-     #   "Philosophy",
-    #    "Chopsticks (Liz Phair cover)",
-   #     "Not The Same"
-   # ],
-
-
-def main(somedata):
+def get_unplayed_tracks(setlist):
 	all_unplayed_tracks = []
 	# TODO: Real parsing function from Brian's data
 	a_hash = {}
-	f = open("setlists.json", "r")
-        setlist = json.load(f)
-        print setlist
-        f.close()
 	for k, v in setlist.iteritems():
 		echo_artist = artist.Artist('musicbrainz:artist:' + k)
 		a = echo_artist.name
@@ -54,22 +21,18 @@ def main(somedata):
 				a_hash[a][t] = 1
 			else:
 				a_hash[a] = {t : 1}
-	print a_hash
+	#print a_hash
 	for k, v in a_hash.iteritems():
-		print k
-		print v
+		#print k
+		#print v
 		played_tracks = get_tracks_from_artist(api_key, user, k, 0)
-		print played_tracks
+		#print played_tracks
 		for k2, v2 in v.iteritems():
 			if k2 in played_tracks:
 				do_nothing = 1;
 			else:
 				all_unplayed_tracks.append({'artistname' : k, 'trackname' : k2})
-	print all_unplayed_tracks
-	f = open("unplayedTracks.json", "w")
-	json.dump(all_unplayed_tracks, f, indent=4)
-	f.close()
-
+	return all_unplayed_tracks
 	
 
 
@@ -83,12 +46,12 @@ def get_tracks_from_artist(key, user, artist, page):
 	while page < int(pages):
 		page +=1
 		newurl = url + "&page=%d" % (page)
-		print newurl
+		#print newurl
 		data = urllib.urlopen(newurl).read()
         	result = json.loads(data)
 		try:
 			pages = result[u'artisttracks']['@attr']['totalPages']
-			print "Going through page %d of %s" % (page, pages)
+			#print "Going through page %d of %s" % (page, pages)
 			for this_t in result[u'artisttracks'][u'track']:
         			name = this_t['name']
         			if (name in track_dict):
@@ -96,8 +59,16 @@ def get_tracks_from_artist(key, user, artist, page):
         			else:
                 			track_dict[name] = 1
 		except:
-			print "Didn't find anything by this artist"
+			#print "Didn't find anything by this artist"
 			return track_dict
         return track_dict
 
-main("foo")
+if __name__ == "__main__":
+	f = open("setlists.json", "r")
+        setlist = json.load(f)
+        f.close()
+	unplayed = get_unplayed_tracks(setlist)
+	f = open("unplayedTracks.json", "w")
+	json.dump(unplayed, f, indent=4)
+	f.close()
+
