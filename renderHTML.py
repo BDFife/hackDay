@@ -3,21 +3,22 @@ import codecs
 
 
 def writeWebsite(tracks, upconcerts = {}):
-	web = codecs.open('index2.html', encoding='utf-8', mode='w+')
-	web.write("<html><head><title>Music You should Listen To</title></head><body>\n")
+    web = []
+	#web = codecs.open('index2.html', encoding='utf-8', mode='w+')
+	web.append("<html><head><title>Music You should Listen To</title></head><body>\n")
 	if (upconcerts):
-		web.write("\t<h1>Your Upcoming shows are:</h1>\n");
-		web.write("\t<center><table border='1' width='500'>\n");
-		web.write("\t<tr><th>Show</th><th>Venue</th><th>Date</th></tr>\n");
+		web.append("\t<h1>Your Upcoming shows are:</h1>\n");
+		web.append("\t<center><table border='1' width='500'>\n");
+		web.append("\t<tr><th>Show</th><th>Venue</th><th>Date</th></tr>\n");
 		for k, v in upconcerts.iteritems():
-			web.write("<tr>")
-			web.write("<td>" + v['name'] + "</td>")
-			web.write("<td>" + v['venue'] + "</td>")
-			web.write("<td>" + v['date'] + "</td>")
-			web.write("</tr>")
-		web.write("\t</center></table>\n");
-	web.write("\t<h1>Based on your last.fm listens and upcoming shows in your area, you should listen to:</h1>\n");
-	web.write("\t<center><table border='1' width='950'>\n");
+			web.append("<tr>")
+			web.append("<td>" + v['name'] + "</td>")
+			web.append("<td>" + v['venue'] + "</td>")
+			web.append("<td>" + v['date'] + "</td>")
+			web.append("</tr>")
+		web.append("\t</center></table>\n");
+	web.append("\t<h1>Based on your last.fm listens and upcoming shows in your area, you should listen to:</h1>\n");
+	web.append("\t<center><table border='1' width='950'>\n");
 	for data in tracks:
 		release_image = ''
 		artist_url = ''
@@ -41,26 +42,27 @@ def writeWebsite(tracks, upconcerts = {}):
 				album_title = data['album_title']	
 			if "trackname" in data:
 				trackname = data['trackname']	
-			web.write("\t\t<tr>\n")
-			web.write("\t\t<td>")
+			web.append("\t\t<tr>\n")
+			web.append("\t\t<td>")
 			if (album_url): 
-				web.write("<a href='" + album_url + "'>")
-			web.write("<img src='" + release_image  + "'>")
+				web.append("<a href='" + album_url + "'>")
+			web.append("<img src='" + release_image  + "'>")
 			if (album_url): 
-				web.write("</a>")
-			web.write("</td>\n")
-			web.write("\t\t<td>")
+				web.append("</a>")
+			web.append("</td>\n")
+			web.append("\t\t<td>")
 			if (artist_url): 
-				web.write("<a href='" + artist_url + "'>")
-			web.write(artistname  + " : " + trackname)
+				web.append("<a href='" + artist_url + "'>")
+			web.append(artistname  + " : " + trackname)
 			if (artist_url): 
-				web.write("</a>")
-			web.write("</td>\n")
-			web.write("\t\t<td>" + get_google_player(preview_url)  + "</td>\n")
-			web.write("\t</tr>")
-	web.write("\t</center></table>\n");
-	web.write("</body></html>")
-        web.close()
+				web.append("</a>")
+			web.append("</td>\n")
+			web.append("\t\t<td>" + get_google_player(preview_url)  + "</td>\n")
+			web.append("\t</tr>")
+	web.append("\t</center></table>\n");
+	web.append("</body></html>")
+#        web.close()
+    return web
 
 def get_google_player(url):
 	first = "<embed type='application/x-shockwave-flash' src='http://www.google.com/reader/ui/3523697345-audio-player.swf' flashvars='audioUrl="

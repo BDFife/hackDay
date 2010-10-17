@@ -80,7 +80,7 @@ def getNewSongs(lfmID, loc)
     #full_data = json.load(f)
     #f.close()
 
-    writeWebsite(full_data, upConcerts)    
+    return writeWebsite(full_data, upConcerts)    
     
 
 if __name__ == "__main__":
