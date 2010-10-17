@@ -13,15 +13,17 @@ import json
 import urllib
 
 
-def getConcertsByID(mbID):
+def getConcertsByID(mbID, loc, min, max):
     """
     Get a list of concerts by musicBrainzID.
     
-    Takes a musicBrainzID. Currently date range and location are hardcoded.
+    Takes a musicBrainzID. SongKick location ID, min-date and max-date.
     Returns a dict of concert IDs, with associated data. 
     """
-    # &min_date=2010-10-20&max_date=2011-10-20
-    myURL='http://api.songkick.com/api/3.0/artists/mbid:%s/events.json?apikey=musichackdayboston&location=sk:18842&min_date=2010-10-20&max_date=2011-10-20' % (mbID)
+    
+    skID = 'musichackdayboston'
+
+    myURL='http://api.songkick.com/api/3.0/artists/mbid:%s/events.json?apikey=%s&location=%s&min_date=%s&max_date=%s' % (mbID, skID, loc, min, max )
     data = urllib.urlopen(myURL).read()
     data = json.loads(data)
     
@@ -89,30 +91,31 @@ def getConcertsByID(mbID):
     return concerts
 
 
-# import the JSON file
 
-f = open("bandlist.json", "r")
-bands = json.load(f)
-f.close()
+if __name__ == "__main__":
+    
+    # import the band list file
+    f = open("bandlist.json", "r")
+    bands = json.load(f)
+    f.close()
 
-"""
-bands has the structure:
-    band name
-        mbid
-        rank
-"""
+    """
+    bands has the structure:
+        band name
+            mbid
+            rank
+    """
+    allConcerts = {}
 
-#print bands
+    loc = 'sk:18842'
+    min = '2010-10-20'
+    max = '2011-10-20'
 
-allConcerts = {}
+    for band in bands:
+        allConcerts.update(getConcertsByID(bands[band]['mbid'], loc, min, max))
 
-for band in bands:
-    allConcerts.update(getConcertsByID(bands[band]['mbid']))
-
-#print json.dumps(allConcerts, indent=4)
-
-f = open("concertlist.json", "w")
-json.dump(allConcerts, f, indent=4)
-f.close()
+    f = open("concertlist2.json", "w")
+    json.dump(allConcerts, f, indent=4)
+    f.close()
 
 
