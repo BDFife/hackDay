@@ -97,23 +97,22 @@ def getSetLists(cID, mbID):
     data = urllib.urlopen(myURL).read()
     data = json.loads(data)
     
-    setList = {}
-
-#########
-# stopping for the evening. getting sloppy. 
-# suggest to d/l a single ID with lyrics and parse through that example first. 
-# I'm getting tangled in the lyric JSON syntax. 
-#########
+    songList = []
     
     if data[u'resultsPage'][u'results']:
         for setList in data[u'resultsPage'][u'results'][u'setlist']:
-            if setList['artist']['identifier']['href'] == mbID:
-                print setList
-            else:
-                print "!!!***!!!rejected"
-           
-    
-#        print json.dumps(data, indent=4)
+            # got stuck on this for a while. Array of artists.
+            # fixme: look at permutations of this. multiple artists mashing into
+            # a single setlist?
+            # this code is likely blatantly *wrong*. It sorts out the dross, though.
+            for artists in setList['artist']['identifier']:
+                if artists['mbid'] == mbID:
+                    # fixme: losing encore information here.
+                    for songs in setList[u'setlistItem']:
+                        songList.append(songs['name'])
+
+    return songList
+
 
 
 f = open("concertlist.json", "r")
@@ -128,14 +127,22 @@ for band in concerts:
 # deduplicate the list
 bands = list(set(bands))
 
+bandSetlists = {}
+
 for band in bands:
+    bandSetlists[band] = []
     cids = getConcerts(band)
+
     for cid in cids.keys():
-        getSetLists(cid, cids[cid]['mbid'])
+        songList = getSetLists(cid, cids[cid]['mbid'])
+        if songList:
+            bandSetlists[band].extend(songList)
 
-#print bands
+f = open('setlists.json', 'w')
+json.dump(bandSetlists, f, indent=4)
+f.close()
 
-# scan the bands' past 12 months activity for concerts with setlists. 
+
 
 
 
