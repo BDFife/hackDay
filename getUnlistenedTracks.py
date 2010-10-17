@@ -9,18 +9,21 @@ config.ECHO_NEST_API_KEY = "LOKZT65Q6JWADXZTU"
 
 
 
-def get_unplayed_tracks(setlist):
+def getUnplayedTracks(setlist):
 	all_unplayed_tracks = []
 	# TODO: Real parsing function from Brian's data
 	a_hash = {}
 	for k, v in setlist.iteritems():
-		echo_artist = artist.Artist('musicbrainz:artist:' + k)
-		a = echo_artist.name
-		for t in v:
-			if (a in a_hash):
-				a_hash[a][t] = 1
-			else:
-				a_hash[a] = {t : 1}
+		try:
+			echo_artist = artist.Artist('musicbrainz:artist:' + k)
+			a = echo_artist.name
+			for t in v:
+				if (a in a_hash):
+					a_hash[a][t] = 1
+				else:
+					a_hash[a] = {t : 1}
+		except:
+			donothing = 1
 	#print a_hash
 	for k, v in a_hash.iteritems():
 		#print k
@@ -67,7 +70,7 @@ if __name__ == "__main__":
 	f = open("setlists.json", "r")
         setlist = json.load(f)
         f.close()
-	unplayed = get_unplayed_tracks(setlist)
+	unplayed = getUnplayedTracks(setlist)
 	f = open("unplayedTracks.json", "w")
 	json.dump(unplayed, f, indent=4)
 	f.close()

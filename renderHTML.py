@@ -2,11 +2,8 @@ import json
 import codecs
 
 
-def main():
-        f = open("enhancedTracksToExplore.json", "r")
-	web = codecs.open('index.html', encoding='utf-8', mode='w+')
-        tracks = json.load(f)
-        f.close()
+def writeWebsite(tracks):
+	web = codecs.open('index2.html', encoding='utf-8', mode='w+')
 	web.write("<html><head><title>Music You should Listen To</title></head><body>\n")
 	web.write("\t<h1>Based on your last.fm listens and upcoming shows in your area, you should listen to:</h1>\n");
 	web.write("\t<center><table border='1' width='950'>\n");
@@ -59,4 +56,10 @@ def get_google_player(url):
 	second= "' width='400' height='27' quality='best'></embed>"
 	return first + url + second;
 
-main()
+
+if __name__ == "__main__":
+        f = open("enhancedTracksToExplore.json", "r")
+        tracks = json.load(f)
+        f.close()
+	writeWebsite(tracks)
+

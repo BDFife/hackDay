@@ -12,31 +12,24 @@ sevendigtrack = "http://api.7digital.com/1.2/track/details?oauth_consumer_key=mu
 sevendigrelease = "http://api.7digital.com/1.2/release/details?oauth_consumer_key=musichackday&country=US&releaseid="
 
 
-def main():
-	f = open("unplayedTracks.json", "r")
-	unplayed_tracks = json.load(f)
-	print unplayed_tracks
-	f.close()
+def getFullData(unplayed_tracks):
 	full_data = []
 	for trackdata in unplayed_tracks:
 		artist = trackdata['artistname']
 		track = trackdata['trackname']
-        	print artist, " :: ",  track
+        	#print artist, " :: ",  track
 		songs = searchtracks(artist, track)
 		for s in songs: # only ever one
 			enhanced_data = get_track_data(s, trackdata, artist)
 			full_data.append(enhanced_data)
-	print full_data
-	f = open("enhancedTracksToExplore.json", "w")
-        json.dump(full_data, f, indent=4)
-        f.close()
+	return full_data
 
 			
 def get_track_data(s, trackdata, artist):
 	trackdata["trackid"] = s.id
 	trackdata["trackname"] = s.title
 	if (s.artist_name != artist):
-		print "no exact match on artist for this track :: " + s.artist_name
+		#print "no exact match on artist for this track :: " + s.artist_name
 		return trackdata
        	tracks = s.get_tracks("7digital")
        	for track in tracks:
@@ -55,10 +48,10 @@ def get_track_data(s, trackdata, artist):
 				trackdata['album_title'] = sevenalb.get_title()
 				return trackdata
 			except:
-				print "failed to get back album"
+				#print "failed to get back album"
 				return trackdata
 		except:
-			print "failed to get back enhanced track info"
+			#print "failed to get back enhanced track info"
 			return trackdata
 
 def searchtracks(k, v):
@@ -90,6 +83,12 @@ def get_7dig_album(id):
         return results[0]
 
 
-main()
-
+if __name__ == "__main__":
+	f = open("unplayedTracks.json", "r")
+	unplayed_tracks = json.load(f)
+	f.close()
+	full_data = getFullData(unplayed_tracks)
+	f = open("enhancedTracksToExplore.json", "w")
+        json.dump(full_data, f, indent=4)
+        f.close()
 
