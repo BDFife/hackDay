@@ -81,5 +81,5 @@ if __name__ == "__main__":
     #full_data = json.load(f)
     #f.close()
 
-    writeWebsite(full_data)    
+    writeWebsite(full_data, upConcerts)    
     

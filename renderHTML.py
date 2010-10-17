@@ -2,9 +2,20 @@ import json
 import codecs
 
 
-def writeWebsite(tracks):
+def writeWebsite(tracks, upconcerts = {}):
 	web = codecs.open('index2.html', encoding='utf-8', mode='w+')
 	web.write("<html><head><title>Music You should Listen To</title></head><body>\n")
+	if (upconcerts):
+		web.write("\t<h1>Your Upcoming shows are:</h1>\n");
+		web.write("\t<center><table border='1' width='500'>\n");
+		web.write("\t<tr><th>Show</th><th>Venue</th><th>Date</th></tr>\n");
+		for k, v in upconcerts.iteritems():
+			web.write("<tr>")
+			web.write("<td>" + v['name'] + "</td>")
+			web.write("<td>" + v['venue'] + "</td>")
+			web.write("<td>" + v['date'] + "</td>")
+			web.write("</tr>")
+		web.write("\t</center></table>\n");
 	web.write("\t<h1>Based on your last.fm listens and upcoming shows in your area, you should listen to:</h1>\n");
 	web.write("\t<center><table border='1' width='950'>\n");
 	for data in tracks:
@@ -61,5 +72,8 @@ if __name__ == "__main__":
         f = open("enhancedTracksToExplore.json", "r")
         tracks = json.load(f)
         f.close()
-	writeWebsite(tracks)
+	f = open("concertlist.json", "r")
+    	concerts = json.load(f)
+   	f.close()
+	writeWebsite(tracks, concerts)
 
