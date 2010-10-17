@@ -32,11 +32,3 @@ for bar in foo[u'artisttracks'][u'track']:
 		tc[name] = 1
 
 
-for k, v in tc.iteritems():
-	print k, " :: ",  v
-	searcher = py7digital.search_track("radiohead " + k)
-	print searcher.get_total_result_count()
-	while searcher.has_results():
-    		for track in searcher.get_next_page():
-        		print track, track.get_id(), track.get_url(), track.get_audio()
-

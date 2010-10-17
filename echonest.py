@@ -9,5 +9,7 @@ config.ECHO_NEST_API_KEY = "LOKZT65Q6JWADXZTU"
 songs = song.search(title="Weird Fishes/Arpeggi", artist="Radiohead", results=1, buckets=["id:7digital", "tracks"], limit="true")
 for s in songs:
         print "%s %s %s" % (s.id, s.artist_name, s.title)
-	print s.audio_summary
+	tracks = s.get_tracks("7digital")
+	for track in tracks:
+		print track
 

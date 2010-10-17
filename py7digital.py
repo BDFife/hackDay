@@ -835,7 +835,8 @@ def _get_album(xml, artist):
     album.set_image(_extract(xml, 'image'))
     album.set_year(_extract(xml, 'year'))
     album.set_barcode(_extract(xml, 'barcode'))
-    album.set_url(_extract(xml, 'url'))
+    all_urls = _extract_all(xml, 'url')
+    album.set_url(all_urls[len(all_urls) - 1])
     album.set_release_date(_extract(xml, 'releaseDate'))
     album.set_added_date(_extract(xml, 'addedDate'))
     #TODO price, formats, artist appears_as
