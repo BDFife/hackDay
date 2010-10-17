@@ -1,29 +1,59 @@
 import urllib, urllib2
 import json
+from pyechonest import artist, config
 
 api_key = "dbc675ab62528258254f6a6164074a55"
 user = "jimmytheleaf"
 userartisttracks = "http://ws.audioscrobbler.com/2.0/?method=user.getartisttracks&format=json"
+config.ECHO_NEST_API_KEY = "LOKZT65Q6JWADXZTU"
+
 
 # Test: band listened to, unlistened to track
 # Band not listened to
 # Band listend to, listened to track
-sampledata = [ "Radiohead :: Bulletproof", "Taj Mahal :: Cakewalk Into Town", "Radiohead :: Reckoner"]
+#sampledata = [ "Radiohead :: Bulletproof", "Taj Mahal :: Cakewalk Into Town", "Radiohead :: Reckoner"]
+
+#{
+#    "51b7f46f-6c0f-46f2-9496-08c9ec2624d4": [
+ #       "Jeep Song (Dresden Dolls cover)",
+  #      "You To Thank",
+    #    "Brainwascht",
+     #   "Where's Summer B?",
+     #   "Wandering",
+      #  "Don't Change Your Plans",
+      #  "Annie Waits",
+      #  "Songs of Love",
+      #  "You Don't Know Me",
+ #       "Still Fighting It",
+  #      "Video",
+   #     "Effington",
+#        "Lullabye",
+ #       "Landed",
+  #      "Narcolepsy",
+   #     "Army",
+    #    "Kate/Wipeout",
+     #   "Philosophy",
+    #    "Chopsticks (Liz Phair cover)",
+   #     "Not The Same"
+   # ],
 
 
 def main(somedata):
 	all_unplayed_tracks = []
 	# TODO: Real parsing function from Brian's data
 	a_hash = {}
-	print sampledata
-	for s in sampledata:
-		at = s.split(" :: ")
-		a = at[0]
-		t = at[1]
-		if (a in a_hash):
-			a_hash[a][t] = 1
-		else:
-			a_hash[a] = {t : 1}
+	f = open("setlists.json", "r")
+        setlist = json.load(f)
+        print setlist
+        f.close()
+	for k, v in setlist.iteritems():
+		echo_artist = artist.Artist('musicbrainz:artist:' + k)
+		a = echo_artist.name
+		for t in v:
+			if (a in a_hash):
+				a_hash[a][t] = 1
+			else:
+				a_hash[a] = {t : 1}
 	print a_hash
 	for k, v in a_hash.iteritems():
 		print k

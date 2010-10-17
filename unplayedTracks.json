@@ -1,10 +1,298 @@
 [
     {
-        "artistname": "Radiohead", 
-        "trackname": "Reckoner"
+        "artistname": "Kings of Leon", 
+        "trackname": "Closer"
     }, 
     {
-        "artistname": "Taj Mahal", 
-        "trackname": "Cakewalk Into Town"
+        "artistname": "Kings of Leon", 
+        "trackname": "Black Thumbnail"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Be Somebody"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Immortals"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Fans"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "4 Kicks"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Mary"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Molly's Chambers"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Southbound"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "The Bucket"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Crawl"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Trani"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Radioactive"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Where Is My Mind"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Taper Jean Girl"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Sex On Fire"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Back Down South"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "On Call"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Charmer"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Four Kicks"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Knocked Up"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Notion"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "My Party"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Wasted Time"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Manhattan"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Use Somebody"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Revelry"
+    }, 
+    {
+        "artistname": "Kings of Leon", 
+        "trackname": "Milk"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Im Your Daddy"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Let It All Hang Out"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Tired Of Sex"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Dope Nose"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Perfect Situation"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Why Bother?"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Why Bother"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Pork and Beans"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Undone (The Sweater Song)"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Kids (MGMT cover)/ Poker Face (Lady Gaga cover)"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Surf Wax America"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Hash Pipe"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "My Name Is Jonas"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Human (Killers cover)"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Group Drum Outro"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Time (Pink Floyd cover)"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "(If You're Wondering If I Want You To) I Want You To"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "(If You Are Wondering If I Want You To) I Want You To"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Island in the Sun"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Say It Ain't So"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Can't Stop Partying"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Beverly Hills"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "I'm Your Daddy"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Intro"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Buddy Holly"
+    }, 
+    {
+        "artistname": "Weezer", 
+        "trackname": "Troublemaker"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Philosophy"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Lullabye"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Narcolepsy"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Jeep Song (Dresden Dolls cover)"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Chopsticks (Liz Phair cover)"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Effington"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "You To Thank"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "You Don't Know Me"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Army"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Brainwascht"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Still Fighting It"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Songs of Love"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Don't Change Your Plans"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Not The Same"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Video"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Annie Waits"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Kate/Wipeout"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Wandering"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Where's Summer B?"
+    }, 
+    {
+        "artistname": "Ben Folds", 
+        "trackname": "Landed"
     }
 ]
