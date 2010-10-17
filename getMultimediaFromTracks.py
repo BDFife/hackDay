@@ -5,22 +5,65 @@ import py7digital
 from py7digital import Track
 from xml.dom import minidom
 
-
 api_key = "dbc675ab62528258254f6a6164074a55"
 user = "jimmytheleaf"
 config.ECHO_NEST_API_KEY = "LOKZT65Q6JWADXZTU"
-userartisttracks = "http://ws.audioscrobbler.com/2.0/?method=user.getartisttracks&format=json"
 sevendigtrack = "http://api.7digital.com/1.2/track/details?oauth_consumer_key=musichackday&country=US&trackid="
 sevendigrelease = "http://api.7digital.com/1.2/release/details?oauth_consumer_key=musichackday&country=US&releaseid="
 
 
-#TODO: Get many pages
-def get_tracks_from_artist(key, user, artist):
-        url = userartisttracks + "&user=" + user + "&artist=" + artist + "&api_key=" + key
-        print (url)
-        data = urllib.urlopen(url).read()
-        result = json.loads(data)
-        return result
+def main():
+	f = open("unplayedTracks.json", "r")
+	unplayed_tracks = json.load(f)
+	print unplayed_tracks
+	f.close()
+	full_data = []
+	for trackdata in unplayed_tracks:
+		artist = trackdata['artistname']
+		track = trackdata['trackname']
+        	print artist, " :: ",  track
+		songs = searchtracks(artist, track)
+		for s in songs: # only ever one
+			enhanced_data = get_track_data(s, trackdata, artist)
+			full_data.append(enhanced_data)
+	print full_data
+	f = open("enhancedTracksToExplore.json", "w")
+        json.dump(full_data, f, indent=4)
+        f.close()
+
+			
+def get_track_data(s, trackdata, artist):
+	trackdata["trackid"] = s.id
+	trackdata["trackname"] = s.title
+	if (s.artist_name != artist):
+		print "no exact match on artist for this track :: " + s.artist_name
+		return trackdata
+       	tracks = s.get_tracks("7digital")
+       	for track in tracks:
+		trackdata['preview_url'] = track['preview_url']
+		trackdata['release_image'] = track['release_image']
+		foreign_id = (track['foreign_id'].split(":"))[2]
+		trackdata['7digital_id'] = foreign_id
+		try:
+			seventr = get_7dig_track(foreign_id)
+			trackdata['artist_url'] = seventr.get_url()
+			alb_id = seventr.album.get_id()
+			trackdata['album_id'] = alb_id
+			try:
+				sevenalb = get_7dig_album(alb_id)
+				trackdata['album_url'] = sevenalb.get_url()
+				trackdata['album_title'] = sevenalb.get_title()
+				return trackdata
+			except:
+				print "failed to get back album"
+				return trackdata
+		except:
+			print "failed to get back enhanced track info"
+			return trackdata
+
+def searchtracks(k, v):
+	songs = song.search(title=v, artist=k, results=1, buckets=["id:7digital", "tracks"], limit="true")
+	return songs
 
 def get_7dig_track(id):
 	request = urllib2.Request(sevendigtrack + id)
@@ -47,46 +90,6 @@ def get_7dig_album(id):
         return results[0]
 
 
-foo = get_tracks_from_artist(api_key, user, "radiohead")
-
-pages = foo[u'artisttracks']['@attr']['totalPages']
-print pages
-
-tc = {}
-
-for bar in foo[u'artisttracks'][u'track']:
-        name = bar['name']
-        if (name in tc):
-                tc[name] += 1
-        else:
-                tc[name] = 1
-
-for k, v in tc.iteritems():
-        print k, " :: ",  v
-	songs = song.search(title=k, artist="Radiohead", results=1, buckets=["id:7digital", "tracks"], limit="true")
-	for s in songs:
-        	print "%s %s %s" % (s.id, s.artist_name, s.title)
-        	tracks = s.get_tracks("7digital")
-        	for track in tracks:
-			#print track
-                	print track['preview_url']
-			print track['release_image']
-			foreign_id = (track['foreign_id'].split(":"))[2]
-			try:
-				seventr = get_7dig_track(foreign_id)
-				print seventr.get_url()
-				alb_id = seventr.album.get_id()
-				try:
-					sevenalb = get_7dig_album(alb_id)
-					print sevenalb.get_url()
-					print sevenalb.get_title()
-					print sevenalb.get_id()
-				except:
-					print "failed to get back album"
-			except:
-				print "failed to get back album"
-			
-
-
+main()
 
 

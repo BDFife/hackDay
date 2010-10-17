@@ -1,16 +1,9 @@
-from pyechonest import artist, config, song, playlist
 import urllib, urllib2
 import json
-import py7digital
-from py7digital import Track
-from xml.dom import minidom
 
 api_key = "dbc675ab62528258254f6a6164074a55"
 user = "jimmytheleaf"
-config.ECHO_NEST_API_KEY = "LOKZT65Q6JWADXZTU"
 userartisttracks = "http://ws.audioscrobbler.com/2.0/?method=user.getartisttracks&format=json"
-sevendigtrack = "http://api.7digital.com/1.2/track/details?oauth_consumer_key=musichackday&country=US&trackid="
-sevendigrelease = "http://api.7digital.com/1.2/release/details?oauth_consumer_key=musichackday&country=US&releaseid="
 
 # Test: band listened to, unlistened to track
 # Band not listened to
