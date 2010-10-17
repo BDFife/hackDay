@@ -4,20 +4,20 @@ import codecs
 
 def writeWebsite(tracks, upconcerts = {}):
     web = []
-    web.append("<html><head><title>Music You should Listen To</title></head><body>\n")
+    web.append("<html><head><title>Music You should Listen To</title></head><body>")
     if (upconcerts):
-        web.append("\t<h1>Your Upcoming shows are:</h1>\n");
-        web.append("\t<center><table border='1' width='500'>\n");
-        web.append("\t<tr><th>Show</th><th>Venue</th><th>Date</th></tr>\n");
+        web.append("<h1>Your Upcoming shows are:</h1>");
+        web.append("<center><table border='1' width='500'>");
+        web.append("<tr><th>Show</th><th>Venue</th><th>Date</th></tr>");
         for k, v in upconcerts.iteritems():
             web.append("<tr>")
             web.append("<td>" + v['name'] + "</td>")
             web.append("<td>" + v['venue'] + "</td>")
             web.append("<td>" + v['date'] + "</td>")
             web.append("</tr>")
-        web.append("\t</center></table>\n");
-    web.append("\t<h1>Based on your last.fm listens and upcoming shows in your area, you should listen to:</h1>\n");
-    web.append("\t<center><table border='1' width='950'>\n");
+        web.append("</center></table>");
+    web.append("<h1>Based on your last.fm listens and upcoming shows in your area, you should listen to:</h1>");
+    web.append("<center><table border='1' width='950'>");
     for data in tracks:
         release_image = ''
         artist_url = ''
@@ -41,24 +41,24 @@ def writeWebsite(tracks, upconcerts = {}):
                 album_title = data['album_title']   
             if "trackname" in data:
                 trackname = data['trackname']   
-            web.append("\t\t<tr>\n")
-            web.append("\t\t<td>")
+            web.append("<tr>")
+            web.append("<td>")
             if (album_url): 
                 web.append("<a href='" + album_url + "'>")
             web.append("<img src='" + release_image  + "'>")
             if (album_url): 
                 web.append("</a>")
-            web.append("</td>\n")
-            web.append("\t\t<td>")
+            web.append("</td>")
+            web.append("<td>")
             if (artist_url): 
                 web.append("<a href='" + artist_url + "'>")
             web.append(artistname  + " : " + trackname)
             if (artist_url): 
                 web.append("</a>")
-            web.append("</td>\n")
-            web.append("\t\t<td>" + get_google_player(preview_url)  + "</td>\n")
-            web.append("\t</tr>")
-    web.append("\t</center></table>\n");
+            web.append("</td>")
+            web.append("<td>" + get_google_player(preview_url)  + "</td>")
+            web.append("</tr>")
+    web.append("</center></table>");
     web.append("</body></html>")
 #        web.close()
     return web
