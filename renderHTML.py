@@ -64,7 +64,7 @@ def writeWebsite(tracks, upconcerts = {}):
     web.append("</center></table>");
     web.append("</body></html>")
 #        web.close()
-    return web
+    return str("".join(web))
 
 def get_google_player(url):
     first = "<embed type='application/x-shockwave-flash' src='http://www.google.com/reader/ui/3523697345-audio-player.swf' flashvars='audioUrl="
