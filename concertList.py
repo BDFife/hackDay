@@ -12,76 +12,107 @@ Saves a list of upcoming concerts.
 import json
 import urllib
 
+
+def getConcertsByID(mbID):
+    """
+    Get a list of concerts by musicBrainzID.
+    
+    Takes a musicBrainzID. Currently date range and location are hardcoded.
+    Returns a dict of concert IDs, with associated data. 
+    """
+    # &min_date=2010-10-20&max_date=2011-10-20
+    myURL='http://api.songkick.com/api/3.0/artists/mbid:%s/events.json?apikey=musichackdayboston&location=sk:18842&min_date=2010-10-20&max_date=2011-10-20' % (mbID)
+    data = urllib.urlopen(myURL).read()
+    data = json.loads(data)
+    
+    """
+     format for this data:
+       resultsPage
+           totalEntries
+           page    (maximum 50 entries per page, navigated with &page=n)
+           results
+               event
+                   type (concert, festival)
+                   popularity
+                   status
+                   uri
+                   location
+                       lat
+                       long
+                       city
+                   start
+                       date
+                       time
+                       datetime
+                   venue
+                       lat
+                       uri
+                       lng
+                       displayName
+                       id
+                       metroArea
+                           state
+                               displayName
+                           country
+                               displayName
+                           displayName
+                           id
+                   displayName (pretty string for concert)
+                   performance (may be a list of artists if a festival)
+                       billingIndex
+                       billing
+                       displayName (for the band)
+                       id
+                       artist
+                           displayName
+                           identifier
+                               href
+                               mbid
+                           id
+                   id
+    """
+
+    concerts = {}
+
+    # fixme: totally disregarding case where results span multiple pages.
+    # no matches will return an empty results set.
+    if data[u'resultsPage'][u'results']:
+        for concert in data[u'resultsPage'][u'results'][u'event']:
+            # not extracting mbID from the returned JSON, because performance is 
+            # a list which can contain a number of artists, if a festival, etc.
+            concerts[concert[u'id']] = {u'date':concert[u'start'][u'date'], 
+                                        u'venue':concert[u'venue'][u'displayName'],
+                                        u'name':concert[u'displayName'],
+                                        u'mbid':mbID}
+                                        
+
+    return concerts
+
+
 # import the JSON file
 
 f = open("bandlist.json", "r")
 bands = json.load(f)
 f.close()
 
-# bands has the structure:
-#   band name
-#       mbid
-#       rank
+"""
+bands has the structure:
+    band name
+        mbid
+        rank
+"""
 
-# fixme: hardcoding location to Boston
-# fixme; hardcoding date range to October 20 2010 -> October 20 2011
+#print bands
 
-myURL='http://api.songkick.com/api/3.0/artists/mbid:a96ac800-bfcb-412a-8a63-0a98df600700/events.json?apikey=musichackdayboston'
+allConcerts = {}
 
-data = urllib.urlopen(myURL).read()
-data = json.loads(data)
+for band in bands:
+    allConcerts.update(getConcertsByID(bands[band]['mbid']))
 
-# format for this data:
-#   resultsPage
-#       totalEntries
-#       page    (maximum 50 entries per page, navigated with &page=n)
-#       results
-#           event
-#               type (concert, festival)
-#               popularity
-#               status
-#               uri
-#               location
-#                   lat
-#                   long
-#                   city
-#               start
-#                   date
-#                   time
-#                   datetime
-#               venue
-#                   lat
-#                   uri
-#                   lng
-#                   displayName
-#                   id
-#                   metroArea
-#                       state
-#                           displayName
-#                       country
-#                           displayName
-#                       displayName
-#                       id
-#               displayName (pretty string for concert)
-#               performance
-#                   billingIndex
-#                   billing
-#                   displayName (for the band)
-#                   id
-#                   artist
-#                       displayName
-#                       identifier
-#                           href
-#                           mbid
-#                       id
-#               id
+#print json.dumps(allConcerts, indent=4)
 
-concerts = {}
+f = open("concertlist.json", "w")
+json.dump(allConcerts, f, indent=4)
+f.close()
 
-# fixme: totally disregarding case where results span multiple pages.
-for concert in data[u'resultsPage'][u'results'][u'event']:
-    concerts[concert[u'displayName']] = {u'date':concert[u'start'][u'datetime'], 
-                                         u'venue':concert[u'venue'][u'displayName'],
-                                         u'id':concert[u'id'],}
 
-print concerts
