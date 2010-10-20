@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Get Psyched - Your Playlist</title>
+</head>
+<body>
+<h1> Your Upcoming Shows Are: </h1>
+<table id="showList">
+<tr><th>Show</th><th>Venue</th><th>Date</th></tr>
+$for k, v in upconcerts.iteritems():
+    "<tr><td>" + str(v['name']) + "</td>"
+    "<td>" + str(v['venue']) + "</td>"
+    "<td>" + str(v['date']) + "</td>"
+    "</tr>"
+</table>
+
+<h1> Based on your last.fm listens, you should catch up with these
+  tracks </h1>
+
+<form name="user" method="post">
+$:user.render()
+<input type="submit" /> </form>
+
+</body>
+</html>
