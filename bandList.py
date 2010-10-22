@@ -11,7 +11,7 @@ Saves a json file bandlist.json that contains the ranked list of favourite bands
 import urllib
 import json
 
-def getTopArtistsFromID(lfmID):
+def getTopArtistsFromID(lfmID, numBands):
     """
     Grab last.FM top artists when provided with a last.fm ID. 
     
@@ -47,8 +47,18 @@ def getTopArtistsFromID(lfmID):
     for artist in data[u'topartists'][u'artist']:
         artists[artist[u'name']]= {u'mbid':artist[u'mbid'], u'rank':int(artist[u'@attr']['rank'])} 
     
-    # here's a nice breakpoint where JSON can be exported
+    # fixme: there is a more elegant way to do this. 
+    dropKeys = []
+
+    # prune the list based on the user's request
+    for artist in artists:
+        if artists[artist]['rank'] > numBands:
+            dropKeys.append(artist)
     
+    for key in dropKeys:
+        del artists[key]
+
+    # here's a nice breakpoint where JSON can be exported
     return artists
 
 if __name__ == "__main__":

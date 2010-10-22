@@ -22,18 +22,8 @@ def getNewSongs(lfmID, loc):
     max = '2011-10-20'          # sets date range for upcoming concerts
     
     # extract top artists from last.fm
-    topArtists = getTopArtistsFromID(lfmID)
+    topArtists = getTopArtistsFromID(lfmID, numArtists)
     
-    # optionally, cut out some artists from the list
-    dropKeys = []
-
-    for artist in topArtists:
-        if topArtists[artist]['rank'] > numArtists:
-            dropKeys.append(artist)
-            
-    for key in dropKeys:
-        del topArtists[key]
-        
     #print topArtists
     
     # pull upcoming concerts from songkick
@@ -66,22 +56,20 @@ def getNewSongs(lfmID, loc):
             if songList:
                 bandSetlists[band].extend(songList)
     
-    #print bandSetlists
-    #f = open("setlists.json", "r")
-    #bandSetlists = json.load(f)
-    #f.close()
     unplayed_tracks = getUnplayedTracks(bandSetlists)
 
     #print unplayed_tracks
     full_data = getFullData(unplayed_tracks)
     #print full_data
 
-    #f = open("enhancedTracksToExplore.json", "r")
-    #full_data = json.load(f)
-    #f.close()
+    # todo: take full_data and manipulate this around.
+    # structure it so a table may be generated elegantly and iterated out. 
 
     return writeWebsite(full_data, upConcerts)    
     
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.DEBUG, format="%(asctime)s:%(levelname)7s: %(message)s")
+    logging.info("Initializing getNewSongs standalone")
     getNewSongs('dagdunnit', 'sk:18842')
