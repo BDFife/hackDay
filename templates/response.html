@@ -1,4 +1,4 @@
-$def with (upconcerts)
+$def with (upconcerts, full_data)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -19,7 +19,11 @@ $for k, v in upconcerts.iteritems():
 <h1> Based on your last.fm listens, you should catch up with these
   tracks </h1>
 
-<p> TBD </p>
-
+<table id="trackList" border=1>
+<tr><th>Band</th><th>Songs</th></tr>
+$for tracks in full_data.keys():
+    <tr><th><img src=$full_data[tracks]['release_image']/></th><th>$full_data[tracks]['artistname']</th><th>$full_data[tracks]['trackname']</th><th><embed type='application/x-shockwave-flash' src='http://www.google.com/reader/ui/3523697345-audio-player.swf' flashvars='audioUrl=$full_data[tracks]['preview_url']' width='400' height='27' quality='best'></embed></th></tr>
+</table>
 </body>
 </html>
+
